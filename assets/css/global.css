@@ -1,0 +1,10 @@
+:root{
+    --yellow-primary: #EFF4A9;
+    --purple-primary: #A747A4;
+    --blue-primary: #60A5B8;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
