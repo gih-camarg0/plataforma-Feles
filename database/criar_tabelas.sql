@@ -215,7 +215,7 @@ CREATE TABLE usuarios_aulas (
 );
 
 -- ============================================================
--- 15. Tabela desafios para os desafios semais ou relampagos
+-- 16. Tabela desafios para os semais ou relampagos
 -- ============================================================
 
 CREATE TABLE desafios (
@@ -226,4 +226,18 @@ CREATE TABLE desafios (
     xp_recompensa INT,
     tempo_limite INT, -- segundos
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ============================================================
+-- 17. Tabela do progresso de desafios semais ou relampagos
+-- ============================================================
+
+CREATE TABLE usuarios_desafios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    desafio_id INT,
+    concluido BOOLEAN DEFAULT FALSE,
+    data_conclusao TIMESTAMP NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (desafio_id) REFERENCES desafios(id)
 );
