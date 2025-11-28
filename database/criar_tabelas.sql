@@ -78,7 +78,7 @@ CREATE TABLE usuarios_exercicios (
 );
 
 -- ============================================================
--- 6. Badges (Conquistas)
+-- 6. Badges
 -- ============================================================
 
 CREATE TABLE badges (
@@ -91,7 +91,7 @@ CREATE TABLE badges (
 );
 
 -- ============================================================
--- 7. Badges conquistados pelos usuários
+-- 7. Badges conquistadas pelos usuários
 -- ============================================================
 
 CREATE TABLE usuarios_badges (
@@ -104,7 +104,7 @@ CREATE TABLE usuarios_badges (
 );
 
 -- ============================================================
--- 8. Ranking semanal (estilo Duolingo)
+-- 8. Ranking semanal
 -- ============================================================
 
 CREATE TABLE ranking_semanal (
@@ -117,7 +117,6 @@ CREATE TABLE ranking_semanal (
     atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
-
 
 -- ============================================================
 -- 9. Loja (itens compráveis)
@@ -146,7 +145,7 @@ CREATE TABLE usuarios_itens (
 );
 
 -- ============================================================
--- 11. Histórico de atividades (feed do aluno)
+-- 11. Histórico de atividades
 -- ============================================================
 
 CREATE TABLE atividades (
@@ -177,7 +176,7 @@ CREATE TABLE metas (
 );
 
 -- ============================================================
--- 13. Tabela especial para controle de streak
+-- 13. Controle de streak
 -- ============================================================
 
 CREATE TABLE streak_log (
@@ -188,20 +187,20 @@ CREATE TABLE streak_log (
 );
 
 -- ============================================================
--- 14. Tabela xp log registro de como o XP foi ganho
+-- 14. Log de XP
 -- ============================================================
 
 CREATE TABLE xp_log (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     quantidade INT NOT NULL,
-    motivo VARCHAR(100) NOT NULL,  -- ex: 'exercicio', 'aula', 'meta', 'bonus'
+    motivo VARCHAR(100) NOT NULL,
     data TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- ============================================================
--- 15. Tabela de progresso por curso/aula
+-- 15. Progresso por aula
 -- ============================================================
 
 CREATE TABLE usuarios_aulas (
@@ -215,29 +214,29 @@ CREATE TABLE usuarios_aulas (
 );
 
 -- ============================================================
--- 16. Tabela desafios para os semais ou relampagos
+-- 16. Desafios (relâmpago/semanal/especial)
 -- ============================================================
 
 CREATE TABLE desafios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(200),
+    titulo VARCHAR(200) NOT NULL,
     descricao TEXT,
-    tipo ENUM('relampago','semanal','especial'),
-    xp_recompensa INT,
-    tempo_limite INT, -- segundos
+    tipo ENUM('relampago','semanal','especial') NOT NULL,
+    xp_recompensa INT NOT NULL,
+    tempo_limite INT,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ============================================================
--- 17. Tabela do progresso de desafios semais ou relampagos
+-- 17. Progresso dos desafios
 -- ============================================================
 
 CREATE TABLE usuarios_desafios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    desafio_id INT,
+    user_id INT NOT NULL,
+    desafio_id INT NOT NULL,
     concluido BOOLEAN DEFAULT FALSE,
     data_conclusao TIMESTAMP NULL,
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (desafio_id) REFERENCES desafios(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (desafio_id) REFERENCES desafios(id) ON DELETE CASCADE
 );
