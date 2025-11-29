@@ -57,7 +57,6 @@ $streak     = $usuario['streak'];
                 <li><a href="desafios.php">Desafios</a></li>
                 <li><a href="ranking.php">Ranking</a></li>
                 <li><a href="loja.php">Loja</a></li>
-                <li><a href="perfil.php">Perfil</a></li>
             </ul>
         </nav>
 
